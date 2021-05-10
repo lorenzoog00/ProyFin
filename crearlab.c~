@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<string.h>
+void Crear_Laberinto(char Laberinto[15][15]);
+void Encontrar_Inicio(char Laberinto[15][15], int *ex, int *ey);
+
+int main (void)
+{
+  int ex, ey;
+  char Laberinto[15][15];
+  Crear_Laberinto(Laberinto);
+  Encontrar_Inicio(Laberinto, &ex, &ey);
+}
+
+void Crear_Laberinto(char Laberinto[15][15])
+{
+  int x, y;
+  x=0;
+  strcpy(Laberinto[0], "@@@@@@@@@@@@@@@");
+  strcpy(Laberinto[1], "@E           S@");
+  strcpy(Laberinto[2], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[3], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[4], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[5], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[6], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[7], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[8], "@             @");
+  strcpy(Laberinto[9], "@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[10],"@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[11],"@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[12],"@ @@@@@@@@@@@ @");
+  strcpy(Laberinto[13],"@             @");
+  strcpy(Laberinto[14],"@@@@@@@@@@@@@@@");
+  for(y=0; y<=14; y++)
+    {
+    for(x=0; x<=14; x++)
+      printf("%c", Laberinto[y][x]);
+    printf("\n");
+    }
+}
+void Encontrar_Inicio(char Laberinto[15][15], int *ex ,int *ey)
+{
+  int x, y; 
+  for(y=0; y<15; y++)
+    { 
+      for(x=0; x<15; x++)
+	{
+	  if(Laberinto[y][x]== 'e' ||Laberinto[y][x]== 'E' )
+	    {
+	      *ex=x;
+	      *ey=y;
+	    }
+	}
+    }
+  printf("E esta en %d, %d", *ey, *ex);
+}
