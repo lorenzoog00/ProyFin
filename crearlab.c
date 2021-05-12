@@ -4,16 +4,16 @@
 #include<stdlib.h>
 void Crear_Laberinto(char Laberinto[15][15]);
 void Encontrar_Inicio(char Laberinto[15][15], int *ex, int *ey, int *x, int *y);
-int Padre(char Laberinto[15][15], int x, int y, char Laberinto_optimo[15][15], int pasos, int caminos);
-void Funcion_optima(char Laberinto[15][15], char Laberinto_optimo[15][15], int pasos, int caminos);
+int Padre(char Laberinto[15][15], int x, int y, char Laberinto_optimo[15][15], int pasos, int *caminos);
+void Funcion_optima(char Laberinto[15][15], char Laberinto_optimo[15][15], int pasos, int *caminos);
 void Imprimir(char Laberinto[15][15]);
 int main (void)
 {
-  int ex, ey, pasos=0, x,y, flag=0, caminos=1;
+  int ex, ey, pasos=0, x,y, caminos=1;
   char Laberinto[15][15], Laberinto_optimo[15][15];
   Crear_Laberinto(Laberinto);
   Encontrar_Inicio(Laberinto, &ex, &ey, &x, &y);
-  Padre(Laberinto,x, y, Laberinto_optimo, pasos, caminos);
+  Padre(Laberinto,x, y, Laberinto_optimo, pasos, &caminos);
 }
 
 void Crear_Laberinto(char Laberinto[15][15])
@@ -21,7 +21,7 @@ void Crear_Laberinto(char Laberinto[15][15])
   int x, y;
   x=0;
   strcpy(Laberinto[0], "@@@@@@@@@@@@@@@");
-  strcpy(Laberinto[1], "@            S@");
+  strcpy(Laberinto[1], "@E           S@");
   strcpy(Laberinto[2], "@ @@@@@@@@@@@ @");
   strcpy(Laberinto[3], "@ @@@@@@@@@@@ @");
   strcpy(Laberinto[4], "@ @@@@@@@@@@@ @");
@@ -33,7 +33,7 @@ void Crear_Laberinto(char Laberinto[15][15])
   strcpy(Laberinto[10],"@ @@@@@@@@@@@ @");
   strcpy(Laberinto[11],"@ @@@@@@@@@@@ @");
   strcpy(Laberinto[12],"@ @@@@@@@@@@@ @");
-  strcpy(Laberinto[13],"@E            @");
+  strcpy(Laberinto[13],"@             @");
   strcpy(Laberinto[14],"@@@@@@@@@@@@@@@");
   Imprimir(Laberinto);
 }
@@ -55,7 +55,7 @@ void Encontrar_Inicio(char Laberinto[15][15], int *ex ,int *ey, int *x, int *y)
   *x=*ex;
 }
 
-int Padre(char Laberinto[15][15], int x, int y, char Laberinto_optimo[15][15], int pasos, int caminos)
+int Padre(char Laberinto[15][15], int x, int y, char Laberinto_optimo[15][15], int pasos, int *caminos)
 {
   if(Laberinto[y][x] == ' ' || Laberinto[y][x]== 'E')
     {
@@ -81,17 +81,20 @@ int Padre(char Laberinto[15][15], int x, int y, char Laberinto_optimo[15][15], i
     return 0;
   if(Laberinto[y][x]== 'S')
     {
-    caminos++;
-    Funcion_optima(Laberinto, Laberinto_optimo, pasos, caminos);
+      Funcion_optima(Laberinto, Laberinto_optimo, pasos, caminos);
+      *caminos= *caminos+1;
     }
 }
 
 
   
-void Funcion_optima(char Laberinto[15][15], char Laberinto_optimo[15][15], int pasos, int caminos)
+void Funcion_optima(char Laberinto[15][15], char Laberinto_optimo[15][15], int pasos, int *caminos)
 {
-  printf("Se hizo en %d pasos", pasos);
-  printf("Este es el camino %d", caminos);
+  //*caminos++;
+  int pasostemp;
+     
+  printf("Se hizo en %d pasos.\n", pasos);
+  printf("Este es el camino %d.\n", *caminos);
 }
 void Imprimir(char Laberinto[15][15])
 {
